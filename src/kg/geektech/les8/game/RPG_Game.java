@@ -5,7 +5,7 @@ import kg.geektech.les8.players.*;
 public class RPG_Game {
 
     public static void start() {
-        Boss boss = new Boss(800, 50);
+        Boss boss = new Boss(1000, 50);
         Medic youngMedic = new Medic(280, 30, 5);
         Warrior warrior = new Warrior(250, 20);
         Magic magic = new Magic(240, 20);
@@ -13,7 +13,8 @@ public class RPG_Game {
         Medic medic = new Medic(220, 10, 15);
         Thor thor = new Thor(240, 15);
         Golem golem = new Golem(600,10);
-        Hero[] heroes = {youngMedic, warrior, magic, hunter, medic, thor, golem};
+        Witcher witcher = new Witcher(350, 0);
+        Hero[] heroes = {youngMedic, warrior, magic, hunter, medic, thor, golem, witcher};
 
         printStatistics(boss, heroes);
         while (!isGameFinished(boss, heroes)) {
@@ -32,7 +33,7 @@ public class RPG_Game {
     }
 
     private static boolean isGameFinished(Boss boss, Hero[] heroes) {
-        if (boss.getHealth() < 0) {
+        if (boss.getHealth() <= 0) {
             System.out.println("Heroes won!!!");
             return true;
         }
@@ -65,8 +66,12 @@ public class RPG_Game {
 
     private static void heroesHit(Boss boss, Hero[] heroes) {
         for (int i = 0; i < heroes.length; i++) {
-            if (boss.getHealth() > 0 && heroes[i].getHealth() > 0) {
-                boss.setHealth(boss.getHealth() - heroes[i].getDamage());
+            if (boss.getHealth()-heroes[i].getDamage()<0){
+                boss.setHealth(0);
+            }else {
+                if (boss.getHealth() > 0 && heroes[i].getHealth() > 0) {
+                    boss.setHealth(boss.getHealth() - heroes[i].getDamage());
+                }
             }
         }
     }

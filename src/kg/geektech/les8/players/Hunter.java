@@ -9,6 +9,5 @@ public class Hunter extends Hero {
     public void applySuperAbility(Boss boss, Hero[] heroes) {
         setDamage(30);
         setDamage(getDamage() + boss.getDamage() / 2);
-
     }
 }
